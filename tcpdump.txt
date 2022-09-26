@@ -1,0 +1,37 @@
+sudo tcpdump -s 0 -i eth0 -w tcpdump.pcap
+
+runs until ctrl +C
+
+
+Using command line options for tcpdump
+Most of the time, when you launch tcpdump you’ll want some control over how you capture the packets and where you store the session. You can control things like that using command line options. These are some of the most useful command line options for tcpdump.
+
+tcpdump -w
+The -w command line option enables Wireshark compatible output. It takes a single variable, which is the output filename. Capture logs saved using this option won’t be human-readable outside of Wireshark, since they’re stored in binary rather than ASCII.
+
+tcpdump -C
+The -C command line option enables you to set a maximum file size in bytes. This option only works alongside -w. For example, the command tcpdump -C 1048576 -w capture.pcap specifies a maximum capture size of 1MB (1,048,576 bytes) output to the file capture.pcap.
+
+If the session generates a larger amount of output, it will create new files to store it in. So a 3MB capture would generate capture.pcap, capture1.pcap, and capture2.pcap each with a file size of 1MB.
+
+tcpdump -s
+The -s command line option sets a maximum length for each packet in bytes, and truncates the packet when the maximum is reached. The command tcpdump -s 0 sets an unlimited length to ensure that the entire packet is captured.
+
+tcpdump -i
+The -i command line option specifies which network device you’d like tcpdump to monitor. If no interface is specified, it defaults to the lowest-numbered interface that is currently running.
+
+tcpdump -list-interfaces
+The command line option tcpdump -list-interfaces will print a list of all interfaces that are available for tcpdump to attach to. Note that this doesn’t start a capture session, but it will give you a list of interfaces to use with the -i option above.
+
+tcpdump -c
+The -c command line option tells tcpdump to exit the session after capturing a specified number of packets.
+
+tcpdump -n
+The -n command line option instructs tcpdump not to resolve IP addresses to hostnames. This is useful when troubleshooting websites behind a load-balancing server, and in a handful of other cases when using a hostname would give ambiguous results.
+
+tcpdump -v | -vv | -vvv
+The three command line options, -v, -vv, and -vvv allow you to increase the verbosity of your capture session. -v will save TTL values for each packet, along with ToS information. -vv will output TTL and ToS along with additional information in NFS packets. And -vvv will log everything the first two options do, along with additional information from telnet sessions.
+
+tcpdump -F
+The -F command line option instructs tcpdump to use capture filters from the specified file. More information about writing a capture file can be found in the next section.
+Whats up bitch
